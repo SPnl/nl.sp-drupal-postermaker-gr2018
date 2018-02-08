@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'HelveticaInseratLTPro';
+  src: url('../webfonts/32F3E5_0_0.eot');
+  src: url('../webfonts/32F3E5_0_0.eot?#iefix') format('embedded-opentype'),
+       url('../webfonts/32F3E5_0_0.woff2') format('woff2'),
+       url('../webfonts/32F3E5_0_0.woff') format('woff'),
+       url('../webfonts/32F3E5_0_0.ttf') format('truetype');
+}
+
+body {
+  font-family: Sans-serif;
+  background: #fafafa;
+}
+canvas {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  clear: both;
+}
+h1 {
+  font-size: 1.4rem;
+}
+h2 {
+  font-size: 1rem;
+  color: #aaa;
+}
+.col {
+  max-width: 768px;
+  margin: 0 auto;
+}
+button {
+  display: block;
+  background: #000;
+  color: #fff;
+  padding: .5rem 1rem;
+  border: none;
+  margin: 1rem auto;
+  font-weight: bold;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+button:hover {
+  background: #ec1b23;
+}
+
+input[type="text"] {
+  padding: .21rem;
+  font-size: 2.1rem;
+  display: block;
+  margin-bottom: .21rem;
+  font-weight: bold;
+}
+
+
+header, footer {
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+footer {
+ color: #aaa;
+}
+footer a,
+footer a:link,
+footer a:visited { 
+  color: #aaa;
+}
+
+form {
+  max-width: 480px;
+  margin: 0 auto;
+}
