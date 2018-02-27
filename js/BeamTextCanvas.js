@@ -31,7 +31,7 @@ saveButton.addEventListener('click', function(e) {
         saveAs(blob, imageName + size + ".png");
     });
 });
-// document.getElementById("pictureInput").addEventListener("change", readFile);
+
 function paintCanvas() {
     var canvas = document.getElementById('poster');
     var ctx = canvas.getContext('2d');
@@ -56,8 +56,8 @@ function paintCanvas() {
         fontSize: 48,
         colorFill: color1,
         colorStroke: color2,
-        transX: 1,
-        transY: .64,
+        transX: -1,
+        transY: .75,
         scale: .3,
         strokeWidth: 8,
         spaceMax: .66,
@@ -70,7 +70,7 @@ function paintCanvas() {
         transX: -1,
         transY: 1,
         scale: 1,
-        strokeWidth: 12,
+        strokeWidth: 8,
         spaceMax: .9,
     }, {
         string: document.getElementById('line3').value.toUpperCase(),
@@ -96,17 +96,19 @@ function paintCanvas() {
   
     layers[1].posY = canvas.height / 2 - layers[1].fontSize / 2;
     layers[0].posY = layers[1].posY - layers[0].fontSize * 1.14;
-    layers[2].posY = layers[1].posY + layers[1].fontSize;
+    layers[2].posY = layers[1].posY + layers[1].fontSize + layers[1].strokeWidth;
 
+    // Do not position the middle layer below 12px
     if(layers[0].posY < 12) {
       layers[0].posY = 12;
     }
-
-    if(layers[2].posY > canvas.height - layers[2].fontSize - 12 ) {
-      layers[2].posY = canvas.height - layers[2].fontSize - 12;
-    }
-
     
+    // Do
+   //    if(layers[2].posY > canvas.height - layers[2].fontSize) {
+  //    layers[2].posY = canvas.height - layers[2].fontSize + layers[1].strokeWidth;
+  //  }
+
+    // Paint the beams
     paintBeam(ctx, canvas, layers[0]);
     paintBeam(ctx, canvas, layers[1]);
     paintBeam(ctx, canvas, layers[2]);
@@ -158,15 +160,4 @@ function paintBeam(ctx, canvas, beam) {
     ctx.textBaseline = 'top';
     ctx.fillStyle = beam.colorFill;
     ctx.fillText(beam.string, beam.posX + beam.strokeWidth, beam.posY + beam.strokeWidth);
-}
-
-function readFile() {
-    if (this.files && this.files[0]) {
-        var FR = new FileReader();
-        FR.addEventListener("load", function(e) {
-            //document.getElementById("img").src       = e.target.result;
-            //document.getElementById("b64").innerHTML = e.target.result;
-        });
-        FR.readAsDataURL(this.files[0]);
-    }
 }

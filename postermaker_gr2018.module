@@ -14,9 +14,7 @@ function postermaker_gr2018_menu() {
 function postermaker_gr2018_page_delivery_callback_alter(&$delivery_callback){
   $router_item = menu_get_item();
   if ($router_item['path'] === 'postermaker-gr2018') {
-    if (user_is_logged_in()) {
       $delivery_callback = 'postermaker_gr2018_content';
-    }
   }
 }
 
@@ -56,23 +54,24 @@ $content = <<<END
                     Type je tekst hier
                 </h2>
                 <form>
-                    <input class="set-text" id="line1" name="line1" type="text" value="Stem 21 maart">
-                        <input class="set-text" id="line2" name="line2" type="text" value="VOOR ELKAAR">
-                            <input class="set-text" id="line3" name="line3" type="text" value="Voor jezelf">
+                    <input class="set-text" id="line1" name="line1" type="text" value="Stem 21 maart SP">
+                        <input class="set-text" id="line2" name="line2" type="text" value="Voor ...">
+                            <input class="set-text" id="line3" name="line3" type="text" value="Voor jezelf, voor elkaar">
                                 <h3>
                                     Afmetingen voor online:
                                 </h3>
                                 <label>
                                     <input checked="true" class="set-option set-size" id="size-facebook" name="size" type="radio" value="820x312">
-                                        Facebook banner
+                                        Facebook omslag
                                 </label>
                                 <label>
-                                    <input  class="set-option set-size" id="size-avatar" name="size" type="radio" value="256x256">
-                                        Profielfoto
+                                    <input checked="true" class="set-option set-size" id="size-twitter-banner" name="size" type="radio" value="1500x500">
+                                        Twitter omslag
                                 </label>
+
                                 <label>
-                                    <input class="set-option set-size" id="size-twitter" name="size" type="radio" value="750x560">
-                                        Twitter
+                                    <input class="set-option set-size" id="size-twitter-card" name="size" type="radio" value="750x560">
+                                        Twitter card
                                 </label>
                                 <label>
                                     <input class="set-option set-size" id="size-instagram" name="size" type="radio" value="600x600">

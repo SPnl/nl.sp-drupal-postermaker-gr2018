@@ -50,7 +50,9 @@ input[type="text"] {
   margin-bottom: .21rem;
   font-weight: bold;
 }
-
+label {
+  display: inline-block;
+}
 
 header, footer {
   max-width: 768px;
