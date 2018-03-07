@@ -46,6 +46,22 @@ function paintCanvas() {
     if (transparentOption == false) {
         ctx.fillStyle = color4;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // More lines
+        ctx.fillStyle = color1;
+        ctx.beginPath();
+        ctx.moveTo(canvas.width * .85, 0);
+        ctx.lineTo(canvas.width, canvas.height * .7);
+        ctx.lineTo(canvas.width, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = color2;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, canvas.height);
+        ctx.lineTo(canvas.width * .15, canvas.height);
+        ctx.closePath();
+        ctx.fill();
     }
     // Define the beam defaults
     var layers = [{
@@ -110,12 +126,15 @@ function sizeLayer(ctx, canvas, layer) {
     layer.fontSize = canvas.height * layer.heightMax;
     ctx.font = layer.fontSize + 'px ' + layer.font;
     layer.textWidth = ctx.measureText(layer.string).width;
+    var widthMax = canvas.width * layer.widthMax;
 
-    while (layer.textWidth > canvas.width * layer.widthMax) {
-        layer.fontSize--;
+    if (layer.textWidth > widthMax) {
+        var ratio = layer.fontSize / layer.textWidth;
+        layer.fontSize = ratio * widthMax;
         ctx.font = layer.fontSize + 'px ' + layer.font;
         layer.textWidth = ctx.measureText(layer.string).width;
     }
+
     layer.fontSize = Math.round(layer.fontSize);
     ctx.font = layer.fontSize + 'px ' + layer.font;
     return layer;
