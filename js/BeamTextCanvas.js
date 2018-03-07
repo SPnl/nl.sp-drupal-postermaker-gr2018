@@ -67,7 +67,7 @@ function paintCanvas() {
     var layers = [{
         string: document.getElementById('line1').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 33,
+        fontSize: 32,
         colorFill: color1,
         colorStroke: color2,
         transX: -.5,
@@ -75,11 +75,11 @@ function paintCanvas() {
         scale: .3,
         strokeWidth: 8,
         widthMax: .6,
-        heightMax: .25,
+        heightMax: .15,
     }, {
         string: document.getElementById('line2').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 33,
+        fontSize: 32,
         colorFill: color3,
         colorStroke: color1,
         transX: -.66,
@@ -91,7 +91,7 @@ function paintCanvas() {
     }, {
         string: document.getElementById('line3').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 33,
+        fontSize: 32,
         colorFill: color1,
         colorStroke: color2,
         transX: .66,
@@ -99,12 +99,14 @@ function paintCanvas() {
         scale: .4,
         strokeWidth: 8,
         widthMax: .6,
-        heightMax: .25,
+        heightMax: .15,
     }];
     // Sizing and positioning
+
     layers[0] = sizeLayer(ctx, canvas, layers[0]); // top
     layers[1] = sizeLayer(ctx, canvas, layers[1]); // middle
     layers[2] = sizeLayer(ctx, canvas, layers[2]); // bottom
+
     // Horizontal positioning: Center all
     layers[0].posX = canvas.width / 2 - layers[0].textWidth / 2; // top
     layers[1].posX = canvas.width / 2 - layers[1].textWidth / 2; // middle
@@ -120,18 +122,17 @@ function paintCanvas() {
 }
 
 function sizeLayer(ctx, canvas, layer) {
+    
+    layer.fontSize = canvas.height * layer.heightMax;
     ctx.font = layer.fontSize + 'px ' + layer.font;
     layer.textWidth = ctx.measureText(layer.string).width;
-    var maxHeight = Math.round(canvas.height * layer.heightMax);
 
-    while (layer.textWidth < (canvas.width * layer.widthMax)) {
-        layer.fontSize++;
+    while (layer.textWidth > canvas.width * layer.widthMax) {
+        layer.fontSize--;
         ctx.font = layer.fontSize + 'px ' + layer.font;
         layer.textWidth = ctx.measureText(layer.string).width;
-        if(layer.fontSize > maxHeight) {
-            break;
-        }
     }
+    layer.fontSize = Math.round(layer.fontSize);
     ctx.font = layer.fontSize + 'px ' + layer.font;
     return layer;
 }
@@ -143,7 +144,7 @@ function paintBeam(ctx, canvas, beam) {
     osCanvas.width = beam.textWidth + beam.fontSize;
     osCanvas.height = beam.fontSize + beam.fontSize;
     var osContext = osCanvas.getContext('2d');
-    var strokeWidth = Math.round(canvas.height / 52);
+    var strokeWidth = canvas.height / 56;
 
     // Paint once
     osContext.font = ctx.font;
