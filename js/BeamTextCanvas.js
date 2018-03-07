@@ -67,11 +67,10 @@ function paintCanvas() {
     var layers = [{
         string: document.getElementById('line1').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 32,
         colorFill: color1,
         colorStroke: color2,
         transX: -.5,
-        transY: .75,
+        transY: 1,
         scale: .3,
         strokeWidth: 8,
         widthMax: .6,
@@ -79,10 +78,9 @@ function paintCanvas() {
     }, {
         string: document.getElementById('line2').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 32,
         colorFill: color3,
         colorStroke: color1,
-        transX: -.66,
+        transX: -.5,
         transY: 1,
         scale: 1,
         strokeWidth: 8,
@@ -91,7 +89,6 @@ function paintCanvas() {
     }, {
         string: document.getElementById('line3').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 32,
         colorFill: color1,
         colorStroke: color2,
         transX: .66,
@@ -115,6 +112,7 @@ function paintCanvas() {
     layers[1].posY = canvas.height / 2 - layers[1].fontSize / 2; // middle
     layers[0].posY = layers[1].posY - layers[0].fontSize * 1.14; // top
     layers[2].posY = layers[1].posY + layers[1].fontSize + layers[1].strokeWidth; // bottom
+
     // Paint the beams
     paintBeam(ctx, canvas, layers[0]);
     paintBeam(ctx, canvas, layers[1]);
@@ -147,7 +145,7 @@ function paintBeam(ctx, canvas, beam) {
     osCanvas.width = beam.textWidth + beam.fontSize;
     osCanvas.height = beam.fontSize + beam.fontSize;
     var osContext = osCanvas.getContext('2d');
-    var strokeWidth = canvas.height / 56;
+    var strokeWidth = Math.round(canvas.height / 56);
 
     // Paint once
     osContext.font = ctx.font;
