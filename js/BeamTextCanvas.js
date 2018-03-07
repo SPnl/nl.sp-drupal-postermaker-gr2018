@@ -1,12 +1,10 @@
 // First paint with default size and tekst
 var font = new FontFaceObserver('HelveticaInseratLTPro');
-
-font.load().then(function () {
-paintCanvas();
-}, function () {
-  // console.log('Font is not available');
+font.load().then(function() {
+    paintCanvas();
+}, function() {
+    // console.log('Font is not available');
 });
-
 // Repaint the canvas when new text is entered
 var textInput = document.getElementsByClassName('set-text');
 for (i = 0; i < textInput.length; i++) {
@@ -48,82 +46,86 @@ function paintCanvas() {
     if (transparentOption == false) {
         ctx.fillStyle = color4;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // More lines
+        ctx.fillStyle = color1;
+        ctx.beginPath();
+        ctx.moveTo(canvas.width * .9, 0);
+        ctx.lineTo(canvas.width, canvas.height * .7);
+        ctx.lineTo(canvas.width, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = color2;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, canvas.height);
+        ctx.lineTo(canvas.width * .2, canvas.height);
+        ctx.closePath();
+        ctx.fill();
     }
     // Define the beam defaults
     var layers = [{
         string: document.getElementById('line1').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 48,
+        fontSize: 96,
         colorFill: color1,
         colorStroke: color2,
-        transX: -1,
+        transX: -.5,
         transY: .75,
         scale: .3,
         strokeWidth: 8,
-        spaceMax: .66,
+        spaceMax: .6,
     }, {
         string: document.getElementById('line2').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 180,
+        fontSize: 220,
         colorFill: color3,
         colorStroke: color1,
-        transX: -1,
+        transX: -.66,
         transY: 1,
         scale: 1,
         strokeWidth: 8,
-        spaceMax: .9,
+        spaceMax: .8,
     }, {
         string: document.getElementById('line3').value.toUpperCase(),
         font: 'HelveticaInseratLTPro',
-        fontSize: 62,
+        fontSize: 72,
         colorFill: color1,
         colorStroke: color2,
-        transX: .64,
+        transX: .66,
         transY: 1,
-        scale: .3,
+        scale: .4,
         strokeWidth: 8,
-        spaceMax: .66,
+        spaceMax: .5,
     }];
-
     // Sizing and positioning
-    layers[0] = sizeLayer(ctx,canvas,layers[0]);
-    layers[1] = sizeLayer(ctx,canvas,layers[1]);
-    layers[2] = sizeLayer(ctx,canvas,layers[2]);
-
-    layers[0].posX = canvas.width / 2 - layers[0].textWidth / 2;
-    layers[1].posX = canvas.width / 2 - layers[1].textWidth / 2;
-    layers[2].posX = canvas.width / 2 - layers[2].textWidth / 2;
-  
-    layers[1].posY = canvas.height / 2 - layers[1].fontSize / 2;
-    layers[0].posY = layers[1].posY - layers[0].fontSize * 1.14;
-    layers[2].posY = layers[1].posY + layers[1].fontSize + layers[1].strokeWidth;
-
-    // Do not position the middle layer below 12px
-    if(layers[0].posY < 12) {
-      layers[0].posY = 12;
-    }
-    
-    // Do
-   //    if(layers[2].posY > canvas.height - layers[2].fontSize) {
-  //    layers[2].posY = canvas.height - layers[2].fontSize + layers[1].strokeWidth;
-  //  }
-
+    layers[0] = sizeLayer(ctx, canvas, layers[0]); // top
+    layers[1] = sizeLayer(ctx, canvas, layers[1]); // middle
+    layers[2] = sizeLayer(ctx, canvas, layers[2]); // bottom
+    // Horizontal positioning: Center all
+    layers[0].posX = canvas.width / 2 - layers[0].textWidth / 2; // top
+    layers[1].posX = canvas.width / 2 - layers[1].textWidth / 2; // middle
+    layers[2].posX = canvas.width / 2 - layers[2].textWidth / 2; // bottom
+    // Vertical positioning (middle layer deternines rest)
+    layers[1].posY = canvas.height / 2 - layers[1].fontSize / 2; // middle
+    layers[0].posY = layers[1].posY - layers[0].fontSize * 1.14; // top
+    layers[2].posY = layers[1].posY + layers[1].fontSize + layers[1].strokeWidth; // bottom
     // Paint the beams
     paintBeam(ctx, canvas, layers[0]);
     paintBeam(ctx, canvas, layers[1]);
     paintBeam(ctx, canvas, layers[2]);
 }
 
-function sizeLayer(ctx,canvas,layer) {
+function sizeLayer(ctx, canvas, layer) {
     ctx.font = layer.fontSize + 'px ' + layer.font;
     layer.textWidth = ctx.measureText(layer.string).width;
-    while(layer.textWidth > canvas.width * layer.spaceMax) {
-      layer.fontSize --;
-      ctx.font = layer.fontSize + 'px ' + layer.font;
-      layer.textWidth = ctx.measureText(layer.string).width;
+    while (layer.textWidth > canvas.width * layer.spaceMax) {
+        layer.fontSize--;
+        ctx.font = layer.fontSize + 'px ' + layer.font;
+        layer.textWidth = ctx.measureText(layer.string).width;
     }
     ctx.font = layer.fontSize + 'px ' + layer.font;
-  return layer;
+    return layer;
 }
 
 function paintBeam(ctx, canvas, beam) {
@@ -133,13 +135,17 @@ function paintBeam(ctx, canvas, beam) {
     osCanvas.width = beam.textWidth + beam.fontSize;
     osCanvas.height = beam.fontSize + beam.fontSize;
     var osContext = osCanvas.getContext('2d');
+    var strokeWidth = canvas.height / 52;
+
+    console.log(strokeWidth);
+    
     // Paint once
     osContext.font = ctx.font;
     osContext.textAlign = 'start';
     osContext.textBaseline = 'top';
     osContext.strokeStyle = beam.colorStroke;
-    osContext.lineWidth = beam.strokeWidth;
-    osContext.strokeText(beam.string, beam.strokeWidth, beam.strokeWidth);
+    osContext.lineWidth = strokeWidth;
+    osContext.strokeText(beam.string, strokeWidth, strokeWidth);
     // Repaint the offsceen canvas many times for the beam
     var curWidth = osCanvas.width;
     var curHeight = osCanvas.height;
@@ -159,5 +165,5 @@ function paintBeam(ctx, canvas, beam) {
     ctx.textAlign = 'start';
     ctx.textBaseline = 'top';
     ctx.fillStyle = beam.colorFill;
-    ctx.fillText(beam.string, beam.posX + beam.strokeWidth, beam.posY + beam.strokeWidth);
+    ctx.fillText(beam.string, beam.posX + strokeWidth, beam.posY + strokeWidth);
 }

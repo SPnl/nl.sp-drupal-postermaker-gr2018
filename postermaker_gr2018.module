@@ -2,8 +2,8 @@
 
 function postermaker_gr2018_menu() {
   $items = array();
-  $items['postermaker-gr2018'] = array(
-    'title' => 'SP Canvas',
+  $items['plaatjesmaker'] = array(
+    'title' => 'SP Plaatjesmaker',
     'type' => MENU_NORMAL_ITEM,
     // 'access callback' => 'user_is_logged_in',
     'access callback' => TRUE,
@@ -13,101 +13,15 @@ function postermaker_gr2018_menu() {
 
 function postermaker_gr2018_page_delivery_callback_alter(&$delivery_callback){
   $router_item = menu_get_item();
-  if ($router_item['path'] === 'postermaker-gr2018') {
+  if ($router_item['path'] === 'plaatjesmaker') {
       $delivery_callback = 'postermaker_gr2018_content';
   }
 }
 
-function postermaker_gr2018_content () {
-  $base_path = drupal_get_path('module', 'postermaker_gr2018');
-
-$content = <<<END
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-            <title>
-                SP Postermaker: GR2018
-            </title>
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <link href="/{$base_path}/css/main.css" rel="stylesheet">
-        </meta>
-    </head>
-    <body>
-        <header>
-            <h1>
-                Plaatjesfabriek: Gemeenteraads&shy;verkiezingen 2018
-            </h1>
-        </header>
-        <main>
-            <section class="col">
-                <canvas id="poster">
-                </canvas>
-                <button id="save-button">
-                    Opslaan
-                </button>
-            </section>
-
-            <section class="col">
-                <h2>
-                    Type je tekst hier
-                </h2>
-                <form>
-                    <input class="set-text" id="line1" name="line1" type="text" value="Stem 21 maart SP">
-                        <input class="set-text" id="line2" name="line2" type="text" value="Voor ...">
-                            <input class="set-text" id="line3" name="line3" type="text" value="Voor jezelf, voor elkaar">
-                                <h3>
-                                    Afmetingen voor online:
-                                </h3>
-                                <label>
-                                    <input checked="true" class="set-option set-size" id="size-facebook" name="size" type="radio" value="820x312">
-                                        Facebook omslag
-                                </label>
-                                <label>
-                                    <input checked="true" class="set-option set-size" id="size-twitter-banner" name="size" type="radio" value="1500x500">
-                                        Twitter omslag
-                                </label>
-
-                                <label>
-                                    <input class="set-option set-size" id="size-twitter-card" name="size" type="radio" value="750x560">
-                                        Twitter card
-                                </label>
-                                <label>
-                                    <input class="set-option set-size" id="size-instagram" name="size" type="radio" value="600x600">
-                                        Instagram
-                                </label>
-                                <h3>
-                                    Achtergrond
-                                </h3>
-                                <label>
-                                    <input class="set-option" id="set-transparent" name="size" type="checkbox">
-                                        Transparante achtergrond
-                                </label>
-                </form>
-            </section>
-        </main>
-        <footer>
-            <p class="copyright">
-                <small>
-                    <strong>Plaatjesgenerator GR2018 &copy; SP Webteam / Stijn Dekker</strong>
-                    <br/>
-                    Als je plaatjes vanuit deze generator deelt, ga je akkoord met het eventuele gebruik door de SP van de door jou gegenereerde plaatjes. We proberen zoveel mogelijk browsers te ondersteunen, maar de plaatjes-generator werkt op dit moment het best in moderne browsers zoals
-                    <a href="https://www.mozilla.org/nl/firefox/new/">
-                        Firefox
-                    </a> - Foutjes kun je melden bij <a href="mailto:webmaster@sp.nl">het webteam van de SP</a>
-                    . De broncode is beschikbaar onder de voorwaarden van de AGPL 3.0 licentie. Het lettertype <em>Helvetica Inserat Std Pro</em> wordt gebruikt onder licentie van MyFonts.com
-                </small>
-            </p>
-        </footer>
-        <script src="/{$base_path}/js/FontFaceObserver.js">
-        </script>
-        <script src="/{$base_path}/js/FileSaver.js">
-        </script>
-        <script src="/{$base_path}/js/BeamTextCanvas.js">
-        </script>
-    </body>
-</html>
-END;
-  print $content;
+function postermaker_gr2018_content () { 
+  global $base_path;  
+  $module_path = drupal_get_path('module','postermaker_gr2018');
+  $src_path = $base_path . $module_path;
+  $html = file_get_contents(dirname(__FILE__).'/postermaker_gr2018.html');
+  print str_replace('{$src_path}',$src_path,$html);
 }

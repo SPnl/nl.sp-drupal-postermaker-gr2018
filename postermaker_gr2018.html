@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <meta content="ie=edge" http-equiv="x-ua-compatible">
+                <title>
+                    SP Plaatjesmaker (GR2018)
+                </title>
+                <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+                    <link href="{$src_path}/css/main.css" rel="stylesheet">
+                    </link>
+                </meta>
+            </meta>
+        </meta>
+    </head>
+    <body>
+        <header>
+            <h1>
+                SP Plaatjesmaker: Gemeenteraads­verkiezingen 2018!!
+            </h1>
+        </header>
+        <main>
+            <section class="col">
+                <canvas id="poster">
+                </canvas>
+                <button id="save-button">
+                    Opslaan
+                </button>
+            </section>
+            <section class="col">
+                <h2>
+                    Type je tekst hier
+                </h2>
+                <form>
+                    <input class="set-text" id="line1" name="line1" type="text" value="Stem 21 maart SP">
+                        <input class="set-text" id="line2" name="line2" type="text" value="Voor jezelf">
+                            <input class="set-text" id="line3" name="line3" type="text" value="Voor elkaar">
+                                <h3>
+                                    Afmetingen voor online:
+                                </h3>
+                                <label>
+                                    <input class="set-option set-size" id="size-facebook" name="size" type="radio" value="820x312">
+                                        Facebook omslag
+                                    </input>
+                                </label>
+                                <label>
+                                    <input class="set-option set-size" id="size-twitter-banner" name="size" type="radio" value="1500x500">
+                                        Twitter omslag
+                                    </input>
+                                </label>
+                                <label>
+                                    <input checked="true" class="set-option set-size" id="size-twitter-card" name="size" type="radio" value="750x560">
+                                        Twitter card
+                                    </input>
+                                </label>
+                                <label>
+                                    <input class="set-option set-size" id="size-instagram" name="size" type="radio" value="600x600">
+                                        Instagram
+                                    </input>
+                                </label>
+                                <h3>
+                                    Achtergrond
+                                </h3>
+                                <label>
+                                    <input class="set-option" id="set-transparent" name="size" type="checkbox">
+                                        Transparante achtergrond
+                                    </input>
+                                </label>
+                            </input>
+                        </input>
+                    </input>
+                </form>
+            </section>
+        </main>
+        <footer>
+            <p class="copyright">
+                <small>
+                    <strong>
+                        Plaatjesgenerator GR2018 © SP Webteam / Stijn Dekker
+                    </strong>
+                    <br/>
+                    Als je plaatjes vanuit deze generator deelt, ga je akkoord met het eventuele gebruik door de SP van de door jou gegenereerde plaatjes. We proberen zoveel mogelijk browsers te ondersteunen, maar de plaatjes-generator werkt op dit moment het best in moderne browsers zoals
+                    <a href="https://www.mozilla.org/nl/firefox/new/">
+                        Firefox
+                    </a>
+                    - Foutjes kun je melden bij
+                    <a href="mailto:webmaster@sp.nl">
+                        het webteam van de SP
+                    </a>
+                    . De broncode is beschikbaar onder een AGPL 3.0 licentie. Het lettertype
+                    <em>
+                        Helvetica Inserat Std Pro
+                    </em>
+                    wordt hier gebruikt onder licentie van MyFonts.com
+                </small>
+            </p>
+        </footer>
+        <script src="{$src_path}/js/FontFaceObserver.js">
+        </script>
+        <script src="{$src_path}/js/FileSaver.js">
+        </script>
+        <script src="{$src_path}/js/BeamTextCanvas.js">
+        </script>
+    </body>
+</html>
