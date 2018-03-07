@@ -46,22 +46,6 @@ function paintCanvas() {
     if (transparentOption == false) {
         ctx.fillStyle = color4;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        // More lines
-        ctx.fillStyle = color1;
-        ctx.beginPath();
-        ctx.moveTo(canvas.width * .85, 0);
-        ctx.lineTo(canvas.width, canvas.height * .7);
-        ctx.lineTo(canvas.width, 0);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.fillStyle = color2;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(0, canvas.height);
-        ctx.lineTo(canvas.width * .15, canvas.height);
-        ctx.closePath();
-        ctx.fill();
     }
     // Define the beam defaults
     var layers = [{
