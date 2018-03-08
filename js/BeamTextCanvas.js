@@ -54,7 +54,6 @@ function paintCanvas() {
         ctx.lineTo(canvas.width, 0);
         ctx.closePath();
         ctx.fill();
-
         ctx.fillStyle = color2;
         ctx.beginPath();
         ctx.moveTo(0, 0);
@@ -99,11 +98,9 @@ function paintCanvas() {
         heightMax: .15,
     }];
     // Sizing and positioning
-
     layers[0] = sizeLayer(ctx, canvas, layers[0]); // top
     layers[1] = sizeLayer(ctx, canvas, layers[1]); // middle
     layers[2] = sizeLayer(ctx, canvas, layers[2]); // bottom
-
     // Horizontal positioning: Center all
     layers[0].posX = canvas.width / 2 - layers[0].textWidth / 2; // top
     layers[1].posX = canvas.width / 2 - layers[1].textWidth / 2; // middle
@@ -112,7 +109,6 @@ function paintCanvas() {
     layers[1].posY = canvas.height / 2 - layers[1].fontSize / 2; // middle
     layers[0].posY = layers[1].posY - layers[0].fontSize * 1.14; // top
     layers[2].posY = layers[1].posY + layers[1].fontSize + layers[1].strokeWidth; // bottom
-
     // Paint the beams
     paintBeam(ctx, canvas, layers[0]);
     paintBeam(ctx, canvas, layers[1]);
@@ -120,19 +116,16 @@ function paintCanvas() {
 }
 
 function sizeLayer(ctx, canvas, layer) {
-    
     layer.fontSize = canvas.height * layer.heightMax;
     ctx.font = layer.fontSize + 'px ' + layer.font;
     layer.textWidth = ctx.measureText(layer.string).width;
     var widthMax = canvas.width * layer.widthMax;
-
     if (layer.textWidth > widthMax) {
         var ratio = layer.fontSize / layer.textWidth;
         layer.fontSize = ratio * widthMax;
         ctx.font = layer.fontSize + 'px ' + layer.font;
         layer.textWidth = ctx.measureText(layer.string).width;
     }
-
     layer.fontSize = Math.round(layer.fontSize);
     ctx.font = layer.fontSize + 'px ' + layer.font;
     return layer;
@@ -145,8 +138,7 @@ function paintBeam(ctx, canvas, beam) {
     osCanvas.width = beam.textWidth + beam.fontSize;
     osCanvas.height = beam.fontSize + beam.fontSize;
     var osContext = osCanvas.getContext('2d');
-    var strokeWidth = Math.round(canvas.height / 56);
-
+    var strokeWidth = canvas.height / 56;
     // Paint once
     osContext.font = ctx.font;
     osContext.textAlign = 'start';
@@ -158,7 +150,9 @@ function paintBeam(ctx, canvas, beam) {
     var curWidth = osCanvas.width;
     var curHeight = osCanvas.height;
     var ratio = curWidth / curHeight;
-    for (i = 0; i < canvas.width; i++) {
+    var iterations = canvas.height - beam.posY;
+
+    for (i = 0; i < iterations; i++) {
         curWidth -= beam.scale;
         curHeight -= beam.scale / ratio;
         if (curHeight < 0) {
